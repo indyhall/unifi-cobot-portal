@@ -7,7 +7,9 @@
     "checkenv": "^1.2.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
-    "nodemon": "^1.17.2"
+    "node-fetch": "^2.1.2",
+    "nodemon": "^1.17.2",
+    "qs": "^6.5.1"
   },
   "scripts": {
     "start": "nodemon index.js"
