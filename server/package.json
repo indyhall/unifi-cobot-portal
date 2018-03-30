@@ -1,0 +1,15 @@
+{
+  "name": "unifi-cobot-portal-server",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "checkenv": "^1.2.2",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.3",
+    "nodemon": "^1.17.2"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  }
+}

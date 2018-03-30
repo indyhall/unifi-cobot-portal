@@ -2,5 +2,17 @@
   "name": "unifi-cobot-portal",
   "version": "0.1.0",
   "private": true,
-  "workspaces": ["portal", "server"]
+  "workspaces": [
+    "portal",
+    "server"
+  ],
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  },
+  "scripts": {
+    "start": "concurrently --kill-others-on-fail 'yarn run start-portal' 'yarn run start-server'",
+    "start-server": "cd ./server && yarn run start",
+    "start-portal": "cd ./portal && yarn run start",
+    "build": "cd ./portal && yarn run build"
+  }
 }
