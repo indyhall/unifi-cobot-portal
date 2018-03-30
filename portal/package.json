@@ -3,12 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "purgecss": "^0.21.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "tailwindcss": "^0.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "tailwind": "tailwind build src/tailwind.css -c ./tailwind.js -o ./tmp/tailwind.css",
+    "purgecss": "purgecss --css ./tmp/tailwind.css --content ./public/index.html ./src/**/*.js --out ./public",
+    "css": "yarn run tailwind && yarn run purgecss && rm -Rf ./tmp/"
   }
 }
