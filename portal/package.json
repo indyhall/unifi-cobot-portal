@@ -1,5 +1,6 @@
 {
   "name": "unifi-cobot-portal-gui",
+  "homepage": "http://192.168.1.176:8880/guest/s/qns2sad4/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,9 +12,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "tailwind": "tailwind build src/tailwind.css -c ./tailwind.js -o ./tmp/tailwind.css",
-    "purgecss": "purgecss --css ./tmp/tailwind.css --content ./public/index.html ./src/**/*.js --out ./public",
-    "css": "yarn run tailwind && yarn run purgecss && rm -Rf ./tmp/"
+    "build": "yarn run build-ui && yarn run build-css",
+    "tailwind": "tailwind build src/tailwind.css -c ./tailwind.js -o ./public/tailwind.css",
+    "purgecss": "purgecss --css ./public/tailwind.css --content ./public/index.html ./src/**/*.js --out ./build",
+    "build-css": "yarn run tailwind && yarn run purgecss",
+    "build-ui": "react-scripts build"
   }
 }
