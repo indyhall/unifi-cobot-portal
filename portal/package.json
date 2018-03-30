@@ -1,6 +1,6 @@
 {
   "name": "unifi-cobot-portal-gui",
-  "homepage": "http://192.168.1.176:8880/guest/s/qns2sad4/",
+  "homepage": "https://optimistic-snyder-346a72.netlify.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
