@@ -1,4 +1,6 @@
 
+import fetch from 'node-fetch';
+
 export const redirect = () => {
 	const opts = {
 		headers: {
@@ -22,4 +24,20 @@ export const guest = (email) => {
 	};
 	
 	return fetch('/guest', opts).then(res => res.json());
+};
+
+export const member = (email, password) => {
+	const opts = {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json'
+		},
+		body: JSON.stringify({
+			email,
+			password
+		})
+	};
+	
+	return fetch('/member', opts).then(res => res.json());
 };

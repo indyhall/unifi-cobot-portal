@@ -6,6 +6,7 @@
   "dependencies": {
     "formik": "^0.11.11",
     "purgecss": "^0.21.0",
+    "query-string": "^6.0.0",
     "react": "^16.3.0",
     "react-dom": "^16.3.0",
     "react-scripts": "1.1.1",
@@ -13,7 +14,7 @@
     "whatwg-fetch": "^2.0.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=8085 react-scripts start",
     "build": "yarn run build-ui && yarn run build-css",
     "tailwind": "tailwind build src/tailwind.css -c ./tailwind.js -o ./public/tailwind.css",
     "purgecss": "purgecss --css ./public/tailwind.css --content ./public/index.html ./src/**/*.js --out ./build",

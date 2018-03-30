@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
-import { guest } from './api';
+import { member } from './api';
 
 const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 	<form onSubmit={ handleSubmit }>
 		<label className="block mb-2 font-bold">
-			What's your email address?
+			Email:
 		</label>
 		
 		<input
@@ -18,14 +18,27 @@ const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit,
 			value={ values.email }
 		/>
 		
-		{ touched.email && errors.email && (
+		<label className="block my-2 font-bold">
+			Password:
+		</label>
+		
+		<input
+			className="appearance-none border rounded w-full py-2 px-3 text-grey-darker mb-2"
+			type="password"
+			name="password"
+			onChange={ handleChange }
+			onBlur={ handleBlur }
+			value={ values.password }
+		/>
+		
+		{ touched.password && errors.password && (
 			<div className="text-red mb-2">
-				{ errors.email }
+				{ errors.password }
 			</div>
 		)}
 		
 		<button className="bg-blue rounded px-4 py-2 text-white hover:bg-blue-dark hover:shadow" type="submit" disabled={ isSubmitting }>
-			Log in as a guest
+			Log In
 		</button>
 	</form>
 );
@@ -35,9 +48,13 @@ const validate = values => {
 	let errors = {};
 	
 	if (!values.email) {
-		errors.email = 'You must enter an email address.';
+		errors.email = 'You must enter your email address.';
 	} else if (!isEmail.test(values.email)) {
 		errors.email = 'Please enter a valid email address.';
+	}
+	
+	if (!values.password) {
+		errors.password = 'You must enter your password.';
 	}
 	
 	return errors;
@@ -45,9 +62,10 @@ const validate = values => {
 
 const initialValues = {
 	email: '',
+	password: '',
 };
 
-export default class GuestForm extends Component {
+export default class MemberForm extends Component {
 	render() {
 		return (
 			<div className="flex-1 ml-4 p-4 border border-grey rounded bg-white shadow">
@@ -62,25 +80,10 @@ export default class GuestForm extends Component {
 	}
 	
 	onSubmit(values, { setSubmitting, setErrors }) {
-		guest(values.email)
+		member(values.email, values.password)
 			.then(result => {
-				if (result.url) {
-					window.location.href = result.url;
-					return;
-				}
-				
+				console.log(result);
 				setSubmitting(false);
-				setErrors(result.errors || {
-					email: 'An unknown error occurred.'
-				});
-			})
-			.catch(err => {
-				console.error(err);
-				setSubmitting(false);
-				
-				setErrors({
-					email: 'An unknown error occurred.'
-				});
 			});
 	}
 }
