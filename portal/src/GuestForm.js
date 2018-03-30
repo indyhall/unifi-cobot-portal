@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Formik } from 'formik';
+import { guest, redirect } from './api';
 
 const Form = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 	<form onSubmit={ handleSubmit }>
@@ -61,10 +62,25 @@ export default class GuestForm extends Component {
 	}
 	
 	onSubmit(values, { setSubmitting, setErrors }) {
-		// setSubmitting(false);
-		// setErrors(transformMyApiErrors(errors));
-		
-		this.onSubmit(values);
-		setSubmitting(false);
+		guest(values.email)
+			.then(result => {
+				if (result.url) {
+					window.location.href = result.url;
+					return;
+				}
+				
+				setSubmitting(false);
+				setErrors(result.errors || {
+					email: 'An unknown error occurred.'
+				});
+			})
+			.catch(err => {
+				console.error(err);
+				setSubmitting(false);
+				
+				setErrors({
+					email: 'An unknown error occurred.'
+				});
+			});
 	}
 }

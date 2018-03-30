@@ -1,3 +1,5 @@
 module.exports = (req, res) => {
-	return res.send('Working on it.');
+	return res.json({
+		url: process.env.REDIRECT_TO,
+	});
 };

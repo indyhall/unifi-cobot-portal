@@ -50,8 +50,13 @@ export default class Member extends Component {
 		this.setState({ redirecting: true });
 		
 		redirect().then(result => {
-			console.log(result);
-			setTimeout(() => this.setState({ redirecting: false }), 2000);
+			if (result.url) {
+				window.location.href = result.url;
+				return;
+			}
+			
+			this.setState({ redirecting: false });
+			// TODO: Handle error state
 		});
 	}
 }

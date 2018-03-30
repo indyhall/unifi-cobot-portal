@@ -13,7 +13,7 @@ const Option = ({ children, onClick = noop => noop }) => (
 
 export default class Login extends Component {
 	state = {
-		'kind': 'member',
+		'kind': null,
 	};
 	
 	render() {

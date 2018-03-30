@@ -1,5 +1,5 @@
 const express = require('express');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const path = require('path');
 
 // Load and check environment
@@ -12,6 +12,7 @@ require('./env');
 
 const app = express();
 
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..', 'portal', 'build')));
 
 app.get('/redirect', require('./redirect-to-cobot'));

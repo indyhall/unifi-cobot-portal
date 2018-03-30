@@ -1,5 +1,5 @@
 module.exports = (req, res) => {
 	return res.json({
-		hello: 'world'
+		url: 'https://www.google.com/' // FIXME
 	});
 };
