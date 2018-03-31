@@ -72,11 +72,11 @@ let colors = {
   'orange-lighter': '#fcd9b6',
   'orange-lightest': '#fff5eb',
 
-  'yellow-darkest': '#453411',
-  'yellow-darker': '#684f1d',
-  'yellow-dark': '#f2d024',
-  'yellow': '#ffed4a',
-  'yellow-light': '#fff382',
+  'yellow-darkest': '#492C0E',
+  'yellow-darker': '#B57D2D',
+  'yellow-dark': '#F6CC49',
+  'yellow': '#F6CC4A',
+  'yellow-light': '#FAE78A',
   'yellow-lighter': '#fff9c2',
   'yellow-lightest': '#fcfbeb',
 

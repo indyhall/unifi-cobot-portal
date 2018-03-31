@@ -1,5 +1,5 @@
 
-const fetch = require('node-fetch');
+const request = require('request');
 const qs = require('qs');
 
 module.exports = (req, res) => {

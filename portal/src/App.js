@@ -1,21 +1,61 @@
 import React, { Component } from 'react';
-import Login from "./Login";
+import logo from "./logo.png";
+import MemberForm from "./MemberForm";
+import GuestForm from './GuestForm';
+
+const Tab = ({ selected, ...props }) => {
+	const base = 'flex-1 px-4 py-2 text-center border-b-2';
+	const classes = selected
+		? 'border-yellow font-bold cursor-default'
+		: 'text-grey-darker cursor-pointer hover:text-blue hover:underline';
+	
+	return <div className={`${base} ${classes}`} {...props} />;
+}
 
 export default class App extends Component {
+	state = {
+		'view': 'member',
+	};
+	
 	render() {
+		const { view } = this.state;
+		
 		return (
-			<div className="container mx-auto">
-				<div className="py-4 flex justify-between items-center">
-					<div className="flex-1" />
-					<div className="flex-1 text-center">
-						<img src="https://www.indyhall.org/images/indy-hall.png" height={100} alt="Indy Hall logo" />
-					</div>
-					<div className="flex-1 text-right">
-						{/* <strong>Need help?</strong> */}
-					</div>
+			<div className="mx-auto my-8 px-4" style={{ maxWidth: 500 }}>
+				<div>
+					<img
+						src={ logo }
+						width={150}
+						className="block mx-auto"
+					/>
 				</div>
 				
-				<Login />
+				<div className="my-4 p-2 bg-white border border-grey rounded shadow">
+					
+					<div className="flex mb-4">
+						<Tab selected={'member' === view} onClick={() => this.setState({ view: 'member' })}>
+							I'm a member
+						</Tab>
+						<Tab selected={'guest' === view} onClick={() => this.setState({ view: 'guest' })}>
+							I'm a guest
+						</Tab>
+					</div>
+					
+					<div className="text-grey-dark text-sm mx-2 my-4">
+						<strong>We don't recognize this device. </strong>
+						Please log in (members only log in once per device; guest
+						log in each visit).
+					</div>
+					
+					<div className="mx-2 my-4">
+						{ 'guest' === view ? <GuestForm /> : <MemberForm /> }
+					</div>
+					
+				</div>
+				
+				<div className="my-4 p-4 text-grey-darker text-sm">
+					Need help?
+				</div>
 			</div>
 		);
 	}
