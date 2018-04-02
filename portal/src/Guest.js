@@ -29,13 +29,9 @@ export default class Guest extends Component {
 				onChange={ handleChange }
 				onBlur={ handleBlur }
 				value={ values.email }
+				touched={touched.email}
+				errors={errors.email}
 			/>
-			
-			{ touched.email && errors.email && (
-				<div className="text-red mb-2">
-					{ errors.email }
-				</div>
-			) }
 			
 			<Button type="submit" disabled={ isSubmitting }>
 				Connect for 24 hours

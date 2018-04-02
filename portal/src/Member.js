@@ -29,13 +29,9 @@ export default class Member extends Component {
 				onChange={ handleChange }
 				onBlur={ handleBlur }
 				value={ values.email }
+				touched={touched.email}
+				errors={errors.email}
 			/>
-			
-			{ touched.email && errors.email && (
-				<div className="text-red mb-2">
-					{ errors.email }
-				</div>
-			) }
 			
 			<InputLabel>
 				Password:
@@ -47,13 +43,9 @@ export default class Member extends Component {
 				onChange={ handleChange }
 				onBlur={ handleBlur }
 				value={ values.password }
+				touched={touched.password}
+				errors={errors.password}
 			/>
-			
-			{ touched.password && errors.password && (
-				<div className="text-red mb-2">
-					{ errors.password }
-				</div>
-			) }
 			
 			<Button type="submit" disabled={ isSubmitting }>
 				Add this device to my account

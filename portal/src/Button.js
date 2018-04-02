@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 export default ({ className = '', ...props}) => {
 	const baseClasses = 'rounded px-6 py-3 my-2 text-white text-xl';
