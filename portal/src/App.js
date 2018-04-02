@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from "./logo.png";
-import MemberForm from "./MemberForm";
-import GuestForm from './GuestForm';
+import Member from "./Member";
+import Guest from './Guest';
 
 const Tab = ({ selected, ...props }) => {
 	const base = 'flex-1 px-4 py-2 text-center border-b-2';
@@ -48,7 +48,7 @@ export default class App extends Component {
 					</div>
 					
 					<div className="mx-2 my-4">
-						{ 'guest' === view ? <GuestForm /> : <MemberForm /> }
+						{ 'guest' === view ? <Guest /> : <Member /> }
 					</div>
 					
 				</div>
