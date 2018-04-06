@@ -60,17 +60,12 @@ export default class Guest extends Component {
 					return;
 				}
 				
-				setSubmitting(false);
-				setErrors(result.errors || {
-					email: 'An unknown error occurred.'
-				});
+				throw 'An unknown error occurred.';
 			})
 			.catch(err => {
-				console.error(err);
 				setSubmitting(false);
-				
 				setErrors({
-					email: 'An unknown error occurred.'
+					email: err
 				});
 			});
 	};

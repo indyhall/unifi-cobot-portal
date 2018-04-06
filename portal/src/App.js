@@ -4,10 +4,10 @@ import Member from "./Member";
 import Guest from './Guest';
 
 const Tab = ({ selected, ...props }) => {
-	const base = 'flex-1 px-4 py-2 text-center border-b-2';
+	const base = 'flex-1 px-4 py-2 text-center border-b-4';
 	const classes = selected
 		? 'border-yellow font-bold cursor-default'
-		: 'text-grey-darker cursor-pointer hover:text-blue hover:underline';
+		: 'border-grey-lighter text-grey-darker cursor-pointer hover:text-blue hover:underline';
 	
 	return <div className={`${base} ${classes}`} {...props} />;
 }
@@ -41,7 +41,7 @@ export default class App extends Component {
 						</Tab>
 					</div>
 					
-					<div className="text-grey-dark text-sm mx-2 my-4">
+					<div className="text-grey-darker mx-2 my-4 leading-normal">
 						<strong>We don't recognize this device. </strong>
 						Please log in (members only log in once per device; guest
 						log in each visit).

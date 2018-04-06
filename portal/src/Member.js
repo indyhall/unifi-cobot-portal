@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import Button from './Button';
 import Input from './Input';
 import InputLabel from './InputLabel';
-import { member } from './api';
+import { guest, member } from './api';
 
 export default class Member extends Component {
 	render() {
@@ -73,8 +73,18 @@ export default class Member extends Component {
 	onSubmit = (values, { setSubmitting, setErrors }) => {
 		member(values.email, values.password)
 			.then(result => {
-				console.log(result);
+				if (result.url) {
+					window.location.href = result.url;
+					return;
+				}
+				
+				throw 'An unknown error occurred.';
+			})
+			.catch(err => {
 				setSubmitting(false);
+				setErrors({
+					email: err
+				});
 			});
 	};
 }

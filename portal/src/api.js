@@ -1,43 +1,31 @@
 
-import fetch from 'node-fetch';
+import 'whatwg-fetch';
 
-export const redirect = () => {
+const api = (url, body) => {
 	const opts = {
+		method: 'POST',
 		headers: {
+			'Content-Type': 'application/json',
 			'Accept': 'application/json'
-		}
+		},
+		body: JSON.stringify(body)
 	};
 	
-	return fetch('/redirect', opts).then(res => res.json());
+	return fetch(url, opts)
+		.then(res => res.json())
+		.then(data => {
+			if (data.error) {
+				throw data.error;
+			}
+			
+			return data;
+		});
 };
 
 export const guest = (email) => {
-	const opts = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json'
-		},
-		body: JSON.stringify({
-			email
-		})
-	};
-	
-	return fetch('/guest', opts).then(res => res.json());
+	return api('/guest', { email });
 };
 
 export const member = (email, password) => {
-	const opts = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			'Accept': 'application/json'
-		},
-		body: JSON.stringify({
-			email,
-			password
-		})
-	};
-	
-	return fetch('/member', opts).then(res => res.json());
+	return api('/guest', { email, password });
 };

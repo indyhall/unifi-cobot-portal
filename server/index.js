@@ -2,20 +2,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-require('./env');
+const env = require('./env');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..', 'portal', 'build')));
 
-app.post('/guest', require('./store-guest'));
-app.post('/member', require('./store-member'));
+app.post('/guest', require('./guest'));
+app.post('/member', require('./member'));
 
-app.get(/.*/, function (req, res) {
-	res.sendFile(path.join(__dirname, '..', 'portal', 'build', 'index.html'));
-});
+const index = path.join(__dirname, '..', 'portal', 'build', 'index.html');
+app.get(/.*/, (req, res) => res.sendFile(index));
 
-app.listen(process.env.PORT, () => {
-	console.log("Server running on port " + process.env.PORT);
+app.listen(env.port, () => {
+	console.log(`Server running on port ${env.port}`);
 });
