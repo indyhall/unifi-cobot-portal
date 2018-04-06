@@ -40,10 +40,22 @@ const login = () => api('/api/login', {
 	password: env.unifi_password
 });
 
-const authorize = (mac) => api(`/api/s/${env.unifi_site}/cmd/stamgr`, {
-	cmd: 'authorize-guest',
-	mac
-});
+const authorize = (mac, ap = null, minutes = null) => {
+	const body = {
+		cmd: 'authorize-guest',
+		mac
+	};
+	
+	if (null !== ap) {
+		body.ap_mac = ap;
+	}
+	
+	if (null !== minutes) {
+		body.minutes = minutes;
+	}
+	
+	return api(`/api/s/${env.unifi_site}/cmd/stamgr`, body);
+};
 
 const clients = () => api(`/api/s/${env.unifi_site}/stat/sta/`);
 
@@ -64,12 +76,11 @@ module.exports = {
 			})
 			.catch(reject);
 	}),
-	authorizeMac: (mac) => new Promise((resolve, reject) => {
+	authorizeMac: (mac, ap_mac = null, minutes = null) => new Promise((resolve, reject) => {
 		login()
-			.then(() => authorize(mac))
+			.then(() => authorize(mac, ap_mac, minutes))
 			.then(result => {
-				resolve(true);
-				console.log(result);
+				resolve(result);
 				logout();
 			})
 			.catch(reject);

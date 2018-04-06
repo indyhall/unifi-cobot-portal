@@ -53,14 +53,10 @@ export default class Guest extends Component {
 	};
 	
 	onSubmit = (values, { setSubmitting, setErrors }) => {
-		guest(values.email)
-			.then(result => {
-				if (result.url) {
-					window.location.href = result.url;
-					return;
-				}
-				
-				throw 'An unknown error occurred.';
+		const { id: mac, ap, url } = this.props.clientData;
+		guest(mac, ap, values.email)
+			.then(() => {
+				window.location.href = url;
 			})
 			.catch(err => {
 				setSubmitting(false);

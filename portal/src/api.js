@@ -22,10 +22,6 @@ const api = (url, body) => {
 		});
 };
 
-export const guest = (email) => {
-	return api('/guest', { email });
-};
+export const guest = (mac, ap, email) => api('/guest', { mac, ap, email });
 
-export const member = (email, password) => {
-	return api('/guest', { email, password });
-};
+export const member = (mac, ap, email, password) => api('/member', { mac, ap, email, password });

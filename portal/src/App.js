@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
 import logo from "./logo.png";
 import Member from "./Member";
 import Guest from './Guest';
+
+const clientData = queryString.parse(window.location.search);
 
 const Tab = ({ selected, ...props }) => {
 	const base = 'flex-1 px-4 py-2 text-center border-b-4';
@@ -16,6 +19,8 @@ export default class App extends Component {
 	state = {
 		'view': 'member',
 	};
+	
+	// ?id=40:98:ad:35:84:aa&ap=44:d9:e7:f9:10:a5&t=1522438663&url=http://neverssl.com%2f&ssid=Testing+Captive
 	
 	render() {
 		const { view } = this.state;
@@ -48,14 +53,18 @@ export default class App extends Component {
 					</div>
 					
 					<div className="mx-2 my-4">
-						{ 'guest' === view ? <Guest /> : <Member /> }
+						{ 'guest' === view ? <Guest clientData={clientData} /> : <Member clientData={clientData} />  }
 					</div>
 					
 				</div>
 				
+				<pre>{ JSON.stringify(clientData, null, 2) }</pre>
+				
+				{/*
 				<div className="my-4 p-4 text-grey-darker text-sm">
 					Need help?
 				</div>
+				*/}
 			</div>
 		);
 	}
