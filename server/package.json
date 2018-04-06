@@ -13,6 +13,7 @@
     "sqlite3": "^4.0.0"
   },
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "start-prod": "PORT=8085 nodemon index.js"
   }
 }

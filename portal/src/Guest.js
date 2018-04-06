@@ -28,9 +28,9 @@ export default class Guest extends Component {
 				name="email"
 				onChange={ handleChange }
 				onBlur={ handleBlur }
-				value={ values.email }
-				touched={touched.email}
-				errors={errors.email}
+				value={ values.email || '' }
+				touched={ touched.email || false }
+				errors={ errors.email || false }
 			/>
 			
 			<Button type="submit" disabled={ isSubmitting }>
@@ -53,15 +53,21 @@ export default class Guest extends Component {
 	};
 	
 	onSubmit = (values, { setSubmitting, setErrors }) => {
-		const { id: mac, ap, url } = this.props.clientData;
+		const { id: mac = null, ap = null, url = 'http://www.indyhall.org' } = this.props.clientData;
+		
 		guest(mac, ap, values.email)
-			.then(() => {
+			.then((result) => {
 				window.location.href = url;
+				// setSubmitting(false);
+				// setErrors({
+				// 	email: JSON.stringify(result)
+				// });
 			})
 			.catch(err => {
+				console.error(err);
 				setSubmitting(false);
 				setErrors({
-					email: err
+					email: 'An unknown error occurred.'
 				});
 			});
 	};

@@ -27,6 +27,8 @@ const api = (path, body = null) => new Promise((resolve, reject) => {
 			return resolve(null);
 		}
 		
+		console.log(body);
+		
 		if (body.meta && body.meta.rc && 'ok' !== body.meta.rc) {
 			return reject(body.data);
 		}
@@ -40,15 +42,15 @@ const login = () => api('/api/login', {
 	password: env.unifi_password
 });
 
-const authorize = (mac, ap = null, minutes = null) => {
+const authorize = (mac, minutes = null) => {
 	const body = {
 		cmd: 'authorize-guest',
 		mac
 	};
 	
-	if (null !== ap) {
-		body.ap_mac = ap;
-	}
+	// if (null !== ap) {
+	// 	body.ap_mac = ap;
+	// }
 	
 	if (null !== minutes) {
 		body.minutes = minutes;
@@ -77,8 +79,9 @@ module.exports = {
 			.catch(reject);
 	}),
 	authorizeMac: (mac, ap_mac = null, minutes = null) => new Promise((resolve, reject) => {
+		console.log({ mac, ap_mac, minutes });
 		login()
-			.then(() => authorize(mac, ap_mac, minutes))
+			.then(() => authorize(mac, minutes))
 			.then(result => {
 				resolve(result);
 				logout();

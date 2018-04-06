@@ -18,5 +18,5 @@ module.exports = {
 	unifi_user: process.env.UNIFI_USER,
 	unifi_password: process.env.UNIFI_PASSWORD,
 	unifi_site: process.env.UNIFI_SITE,
-	hostname: process.env.HOSTNAME,
+	host: process.env.HOST,
 };

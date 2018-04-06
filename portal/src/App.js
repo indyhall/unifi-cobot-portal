@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
+import qs from 'qs';
 import logo from "./logo.png";
 import Member from "./Member";
 import Guest from './Guest';
 
-const clientData = queryString.parse(window.location.search);
+const clientData = qs.parse(window.location.search, { ignoreQueryPrefix: true });
 
 const Tab = ({ selected, ...props }) => {
 	const base = 'flex-1 px-4 py-2 text-center border-b-4';

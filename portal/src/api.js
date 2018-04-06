@@ -11,6 +11,8 @@ const api = (url, body) => {
 		body: JSON.stringify(body)
 	};
 	
+	console.log(url, body);
+	
 	return fetch(url, opts)
 		.then(res => res.json())
 		.then(data => {
