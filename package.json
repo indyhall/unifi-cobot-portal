@@ -10,9 +10,12 @@
     "concurrently": "^3.5.1"
   },
   "scripts": {
-    "start": "concurrently --kill-others-on-fail 'yarn run start-portal' 'yarn run start-server'",
-    "start-server": "cd ./server && yarn run start",
-    "start-portal": "cd ./portal && yarn run start",
+    "dev": "concurrently --kill-others-on-fail 'yarn run dev-portal' 'yarn run dev-server'",
+    "prod": "yarn run build && yarn run prod-server",
+    "dev-server": "cd ./server && yarn run dev",
+    "prod-server": "cd ./server && yarn run prod",
+    "dev-portal": "cd ./portal && yarn run dev",
     "build": "cd ./portal && yarn run build"
-  }
+  },
+  "dependencies": {}
 }

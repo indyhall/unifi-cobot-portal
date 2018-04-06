@@ -13,19 +13,19 @@ Start by installing all the dependencies, with:
 You will then need to set up your `.env` file. See `env.json` for details on
 all the environmental variables that need to be set.
 
-Next, run:
-
-    yarn run build
-
-This will install the dependencies and build the portal UI.
-
-
 ## Development
 
 To start the local dev server & React hot reloading, run:
 
-    yarn run start
+    yarn run dev
     
-To just start the server, serving built assets, run:
+## Production
 
-    yarn run start-server
+To create a production build of the portal and start the production server,
+run:
+
+    yarn run prod
+
+You can also just start the server without rebuilding the portal with:
+
+    yarn run prod-server

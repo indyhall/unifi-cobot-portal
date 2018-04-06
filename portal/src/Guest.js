@@ -16,7 +16,7 @@ export default class Guest extends Component {
 		);
 	}
 	
-	renderForm = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+	renderForm = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, isValid }) => (
 		<form onSubmit={ handleSubmit }>
 			<InputLabel>
 				What's your email address?
@@ -33,7 +33,7 @@ export default class Guest extends Component {
 				errors={ errors.email || false }
 			/>
 			
-			<Button type="submit" disabled={ isSubmitting }>
+			<Button type="submit" disabled={ isSubmitting || !isValid }>
 				Connect for 24 hours
 			</Button>
 		</form>

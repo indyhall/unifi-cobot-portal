@@ -16,5 +16,5 @@ const index = path.join(__dirname, '..', 'portal', 'build', 'index.html');
 app.get(/.*/, (req, res) => res.sendFile(index));
 
 app.listen(env.port, () => {
-	console.log(`Server running on port ${env.port}`);
+	console.log(`Server running on port "${env.port}"`);
 });

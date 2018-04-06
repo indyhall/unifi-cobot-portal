@@ -14,11 +14,11 @@
     "whatwg-fetch": "^2.0.4"
   },
   "scripts": {
-    "start": "PORT=8085 DANGEROUSLY_DISABLE_HOST_CHECK=true react-scripts start",
-    "build": "yarn run build-ui && yarn run build-css",
+    "dev": "PORT=8085 react-scripts start",
     "tailwind": "tailwind build src/tailwind.css -c ./tailwind.js -o ./public/tailwind.css",
     "purgecss": "purgecss --css ./public/tailwind.css --content ./public/index.html ./src/**/*.js --out ./build",
     "build-css": "yarn run tailwind && yarn run purgecss",
-    "build-ui": "react-scripts build"
+    "build-ui": "react-scripts build",
+    "build": "yarn run build-ui && yarn run build-css"
   }
 }

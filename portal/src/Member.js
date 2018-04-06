@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import Button from './Button';
 import Input from './Input';
 import InputLabel from './InputLabel';
-import { guest, member } from './api';
+import { member } from './api';
 
 export default class Member extends Component {
 	render() {
@@ -16,42 +16,58 @@ export default class Member extends Component {
 		);
 	}
 	
-	renderForm = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-		<form onSubmit={ handleSubmit }>
-			<InputLabel>
-				Email:
-			</InputLabel>
+	renderForm = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, isValid }) => {
+		const validEmail = touched.email && !errors.email;
+		const filledPassword = values.password && '' !== values.password;
+		
+		return (
+			<form onSubmit={ handleSubmit }>
+				<InputLabel>
+					Email:
+				</InputLabel>
+				
+				<Input
+					placeholder="eg. you@gmail.com"
+					type="email"
+					name="email"
+					onChange={ handleChange }
+					onBlur={ handleBlur }
+					value={ values.email }
+					touched={ touched.email }
+					errors={ errors.email }
+				/>
+				
+				<div className={ validEmail ? 'block' : 'hidden' }>
+					
+					<InputLabel>
+						Password:
+					</InputLabel>
+					
+					<Input
+						type="password"
+						name="password"
+						onChange={ handleChange }
+						onBlur={ handleBlur }
+						value={ values.password }
+						touched={ touched.password }
+						errors={ errors.password }
+					/>
+				
+				</div>
+				
+				<Button type="submit" disabled={ isSubmitting || !isValid }>
+					Continue
+				</Button>
+				
+				{ validEmail && (
+					<button className="rounded px-4 py-3 my-2 text-blue hover:underline cursor-pointer">
+						I forgot my password
+					</button>
+				) }
 			
-			<Input
-				placeholder="eg. you@gmail.com"
-				type="email"
-				name="email"
-				onChange={ handleChange }
-				onBlur={ handleBlur }
-				value={ values.email }
-				touched={touched.email}
-				errors={errors.email}
-			/>
-			
-			<InputLabel>
-				Password:
-			</InputLabel>
-			
-			<Input
-				type="password"
-				name="password"
-				onChange={ handleChange }
-				onBlur={ handleBlur }
-				value={ values.password }
-				touched={touched.password}
-				errors={errors.password}
-			/>
-			
-			<Button type="submit" disabled={ isSubmitting }>
-				Add this device to my account
-			</Button>
-		</form>
-	);
+			</form>
+		);
+	};
 	
 	validate = values => {
 		const isEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
