@@ -11,6 +11,7 @@ const api = (url, body) => {
 		body: JSON.stringify(body)
 	};
 	
+	alert(`Calling ${url}`);
 	console.log(url, body);
 	
 	return fetch(url, opts)
