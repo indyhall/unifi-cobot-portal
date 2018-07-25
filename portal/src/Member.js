@@ -8,7 +8,7 @@ export default class Member extends Component {
 	state = {
 		submitting: false,
 		values: {
-			email: '',
+			email: 'alex+test@indyhall.org',
 			password: '',
 		},
 		errors: {
