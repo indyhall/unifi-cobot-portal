@@ -12,13 +12,17 @@ export default class Member extends Component {
 				render={ this.renderForm }
 				validate={ this.validate }
 				onSubmit={ this.onSubmit }
+				initialValues={ {
+					email: '',
+					password: '',
+				} }
 			/>
 		);
 	}
 	
-	renderForm = ({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, isValid }) => {
-		const validEmail = touched.email && !errors.email;
-		const filledPassword = values.password && '' !== values.password;
+	renderForm = (props) => {
+		const { initialValues, values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, isValid } = props;
+		const validEmail = '' !== values.email && !errors.email;
 		
 		return (
 			<form onSubmit={ handleSubmit }>
@@ -33,7 +37,7 @@ export default class Member extends Component {
 					onChange={ handleChange }
 					onBlur={ handleBlur }
 					value={ values.email }
-					touched={ touched.email }
+					touched={ values.email !== initialValues.email }
 					errors={ errors.email }
 				/>
 				
@@ -49,7 +53,7 @@ export default class Member extends Component {
 						onChange={ handleChange }
 						onBlur={ handleBlur }
 						value={ values.password }
-						touched={ touched.password }
+						touched={ values.password !== initialValues.password }
 						errors={ errors.password }
 					/>
 				
@@ -61,7 +65,7 @@ export default class Member extends Component {
 				
 				{ validEmail && (
 					<button className="rounded px-4 py-3 my-2 text-blue hover:underline cursor-pointer">
-						I forgot my password
+						I forgot my password (FIXME)
 					</button>
 				) }
 			
@@ -87,7 +91,7 @@ export default class Member extends Component {
 	};
 	
 	onSubmit = (values, { setSubmitting, setErrors }) => {
-		member(values.email, values.password)
+		member(this.props.clientData.mac, this.props.clientData.ap, values.email, values.password)
 			.then(result => {
 				if (result.url) {
 					window.location.href = result.url;

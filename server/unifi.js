@@ -63,6 +63,25 @@ const clients = () => api(`/api/s/${env.unifi_site}/stat/sta/`);
 
 const logout = () => api('/logout');
 
+// if (!$this->is_loggedin) return false;
+// $json     = json_encode(['name' => $name]);
+// $response = $this->exec_curl('/api/s/'.$this->site.'/upd/user/'.trim($user_id), 'json='.$json);
+// return $this->process_response_boolean($response);
+
+// stat_allusers
+// 			$clients = $this->get_clients( $site->name );
+
+
+// 								self::$unifi_connection->set_sta_name( $client->_id, $macs[ $client->mac ] );
+
+// public function set_sta_name($user_id, $name = null)
+// {
+// 	if (!$this->is_loggedin) return false;
+// 	$json     = json_encode(['name' => $name]);
+// 	$response = $this->exec_curl('/api/s/'.$this->site.'/upd/user/'.trim($user_id), 'json='.$json);
+// 	return $this->process_response_boolean($response);
+// }
+
 module.exports = {
 	clients: () => new Promise((resolve, reject) => {
 		login()
