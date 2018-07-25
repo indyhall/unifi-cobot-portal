@@ -10,7 +10,7 @@ export default ({ className = '', touched = false, errors = null, ...props }) =>
 		: 'border-grey-dark';
 	
 	return (
-		<React.Fragment>
+		<div>
 			<input className={`${baseClasses} ${colorClasses} ${errorClasses} ${className}`} {...props} />
 			
 			{ touched && errors && (
@@ -18,6 +18,6 @@ export default ({ className = '', touched = false, errors = null, ...props }) =>
 					{ errors }
 				</div>
 			)}
-		</React.Fragment>
+		</div>
 	);
 };

@@ -23,7 +23,7 @@ export default class Login extends Component {
 		const Form = 'guest' === view ? Guest : Member;
 		
 		return (
-			<React.Fragment>
+			<div>
 				
 				<div className="flex mb-4">
 					<Tab selected={ 'member' === view } onClick={ () => this.setState({ view: 'member' }) }>
@@ -48,7 +48,7 @@ export default class Login extends Component {
 					<strong>Device ID:</strong> { mac }
 				</div>
 			
-			</React.Fragment>
+			</div>
 		);
 	}
 }
