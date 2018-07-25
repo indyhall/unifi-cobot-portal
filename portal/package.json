@@ -4,6 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bugsnag-js": "^4.7.2",
+    "bugsnag-react": "^1.1.1",
     "formik": "^1.0.1",
     "purgecss": "^1.0.1",
     "qs": "^6.5.1",
