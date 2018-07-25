@@ -20,8 +20,7 @@ export default class Member extends Component {
 		);
 	}
 	
-	renderForm = (props) => {
-		const { initialValues, values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, isValid } = props;
+	renderForm = ({ initialValues, values, errors, handleChange, handleBlur, handleSubmit, isSubmitting, isValid }) => {
 		const validEmail = '' !== values.email && !errors.email;
 		
 		return (
@@ -41,23 +40,19 @@ export default class Member extends Component {
 					errors={ errors.email }
 				/>
 				
-				<div className={ validEmail ? 'block' : 'hidden' }>
-					
-					<InputLabel>
-						Password:
-					</InputLabel>
-					
-					<Input
-						type="password"
-						name="password"
-						onChange={ handleChange }
-						onBlur={ handleBlur }
-						value={ values.password }
-						touched={ values.password !== initialValues.password }
-						errors={ errors.password }
-					/>
+				<InputLabel>
+					Password:
+				</InputLabel>
 				
-				</div>
+				<Input
+					type="password"
+					name="password"
+					onChange={ handleChange }
+					onBlur={ handleBlur }
+					value={ values.password }
+					touched={ values.password !== initialValues.password }
+					errors={ errors.password }
+				/>
 				
 				<Button type="submit" disabled={ isSubmitting || !isValid }>
 					Continue
@@ -91,14 +86,17 @@ export default class Member extends Component {
 	};
 	
 	onSubmit = (values, { setSubmitting, setErrors }) => {
-		member(this.props.clientData.mac, this.props.clientData.ap, values.email, values.password)
+		const { mac, ap, url } = this.props;
+		const { email, password } = values;
+		
+		member(mac, ap, email, password)
 			.then(result => {
-				if (result.url) {
-					window.location.href = result.url;
+				if (url) {
+					window.location.href = url;
 					return;
 				}
 				
-				throw 'An unknown error occurred.';
+				window.location.href = 'https://hello.indyhall.org';
 			})
 			.catch(err => {
 				setSubmitting(false);

@@ -4,18 +4,16 @@ import logo from "./logo.png";
 import Login from "./Login";
 
 const query = qs.parse(window.location.search, { ignoreQueryPrefix: true });
-const clientData = {
-	...query,
-	mac: query.id
-};
 
 export default class App extends Component {
-	state = {
-		'view': 'member',
-	};
-	
 	render() {
-		const { view } = this.state;
+		const {
+			id,   // Client MAC Address
+			ap,   // MAC Address of Access Point
+			t,    // Current Unix Timestamp
+			url,  // Attempted URL
+			ssid, // SSID of connection
+		} = query;
 		
 		return (
 			<div className="mx-auto my-8 px-4" style={ { maxWidth: 500 } }>
@@ -29,9 +27,9 @@ export default class App extends Component {
 				
 				<div className="my-4 p-2 bg-white border border-grey rounded shadow">
 					
-					{ clientData.mac && <Login clientData={ clientData } /> }
+					{ id && <Login mac={ id } url={ url } ap={ ap } t={ t } ssid={ ssid } /> }
 					
-					{ !clientData.mac && (
+					{ !id && (
 						<p className="text-grey-darker mx-2 my-4 leading-normal">
 							<strong>We don't recognize this device </strong> and no address
 							information appears to be available. Please make sure you are connected

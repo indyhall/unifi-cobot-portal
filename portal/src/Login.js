@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Member from "./Member";
+import Member from './Member';
 import Guest from './Guest';
 
 const Tab = ({ selected, ...props }) => {
@@ -18,7 +18,9 @@ export default class Login extends Component {
 	
 	render() {
 		const { view } = this.state;
-		const { clientData } = this.props;
+		const { mac, ap, url } = this.props;
+		
+		const Form = 'guest' === view ? Guest : Member;
 		
 		return (
 			<React.Fragment>
@@ -39,11 +41,11 @@ export default class Login extends Component {
 				</div>
 				
 				<div className="mx-2 my-4">
-					{ 'guest' === view ? <Guest clientData={ clientData } /> : <Member clientData={ clientData } /> }
+					<Form mac={ mac } url={ url } ap={ ap } />
 				</div>
 				
 				<div className="text-grey-light text-sm font-mono pt-4 px-2 my-4 border-t">
-					<strong>Device ID:</strong> { clientData.mac }
+					<strong>Device ID:</strong> { mac }
 				</div>
 			
 			</React.Fragment>
