@@ -15,6 +15,6 @@
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "prod": "PORT=8085 nodemon index.js"
+    "prod": "nodemon index.js"
   }
 }
