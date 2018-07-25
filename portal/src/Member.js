@@ -1,30 +1,32 @@
 import React, { Component } from 'react';
-import { Formik } from 'formik';
 import Button from './Button';
 import Input from './Input';
 import InputLabel from './InputLabel';
 import { member } from './api';
 
 export default class Member extends Component {
-	render() {
-		return (
-			<Formik
-				render={ this.renderForm }
-				validate={ this.validate }
-				onSubmit={ this.onSubmit }
-				initialValues={ {
-					email: '',
-					password: '',
-				} }
-			/>
-		);
-	}
+	state = {
+		submitting: false,
+		values: {
+			email: '',
+			password: '',
+		},
+		errors: {
+			email: null,
+			password: null,
+		},
+		touched: {
+			email: false,
+			password: false,
+		},
+	};
 	
-	renderForm = ({ initialValues, values, errors, handleChange, handleBlur, handleSubmit, isSubmitting, isValid }) => {
-		const validEmail = '' !== values.email && !errors.email;
+	render() {
+		
+		const { values, errors, touched, submitting } = this.state;
 		
 		return (
-			<form onSubmit={ handleSubmit }>
+			<div>
 				<InputLabel>
 					Email:
 				</InputLabel>
@@ -33,10 +35,10 @@ export default class Member extends Component {
 					placeholder="eg. you@gmail.com"
 					type="email"
 					name="email"
-					onChange={ handleChange }
-					onBlur={ handleBlur }
+					onChange={ this.onChange('email') }
+					onKeyPress={ this.onKeyPress }
 					value={ values.email }
-					touched={ values.email !== initialValues.email }
+					touched={ touched.email }
 					errors={ errors.email }
 				/>
 				
@@ -47,30 +49,50 @@ export default class Member extends Component {
 				<Input
 					type="password"
 					name="password"
-					onChange={ handleChange }
-					onBlur={ handleBlur }
+					onChange={ this.onChange('password') }
+					onKeyPress={ this.onKeyPress }
 					value={ values.password }
-					touched={ values.password !== initialValues.password }
+					touched={ touched.password }
 					errors={ errors.password }
 				/>
 				
-				<Button type="submit" disabled={ isSubmitting || !isValid }>
+				<Button onClick={ this.onSubmit } disabled={ errors.email || errors.password || submitting }>
 					Continue
 				</Button>
-				
-				{ validEmail && (
-					<button className="rounded px-4 py-3 my-2 text-blue hover:underline cursor-pointer">
-						I forgot my password (FIXME)
-					</button>
-				) }
 			
-			</form>
+			</div>
 		);
+	}
+	
+	onChange = key => event => {
+		const { touched, values } = this.state;
+		const nextValues = {
+			...values,
+			[key]: event.target.value
+		};
+		
+		this.setState({
+			values: nextValues,
+			touched: {
+				...touched,
+				[key]: true,
+			},
+			errors: this.validate(nextValues),
+		});
+	};
+	
+	onKeyPress = event => {
+		if ('Enter' === event.key) {
+			this.onSubmit();
+		}
 	};
 	
 	validate = values => {
 		const isEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-		let errors = {};
+		let errors = {
+			email: null,
+			password: null,
+		};
 		
 		if (!values.email) {
 			errors.email = 'You must enter your email address.';
@@ -85,9 +107,14 @@ export default class Member extends Component {
 		return errors;
 	};
 	
-	onSubmit = (values, { setSubmitting, setErrors }) => {
+	onSubmit = () => {
 		const { mac, ap, url } = this.props;
+		const { errors, values } = this.state;
 		const { email, password } = values;
+		
+		if (errors.email || errors.password) {
+			return;
+		}
 		
 		member(mac, ap, email, password)
 			.then(result => {
@@ -99,9 +126,12 @@ export default class Member extends Component {
 				window.location.href = 'https://hello.indyhall.org';
 			})
 			.catch(err => {
-				setSubmitting(false);
-				setErrors({
-					email: err
+				this.setState({
+					submitting: false,
+					errors: {
+						email: err,
+						password: null,
+					},
 				});
 			});
 	};
